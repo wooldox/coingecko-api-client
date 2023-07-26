@@ -4,6 +4,14 @@
   "description": "A TypeScript client for the CoinGecko API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooldox/coingecko-api-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wooldox/coingecko-api-client/issues"
+  },
+  "homepage": "https://github.com/wooldox/coingecko-api-client",
   "scripts": {
     "start:dev": "npx nodemon",
     "start": "npm run build && node dist/index.js",
