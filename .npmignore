@@ -1,0 +1,11 @@
+# Dependencies
+node_modules/
+
+# Project files
+/src/
+.gitignore
+package-lock.json
+tsconfig.json
+
+# Build
+*.tgz
