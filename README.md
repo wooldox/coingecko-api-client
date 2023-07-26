@@ -4,12 +4,12 @@
 A TypeScript client for the [CoinGecko](https://www.coingecko.com/en/api) API.
 
 ## Installation
-```
+```shell
 npm install coingecko-api-client
 ```
 
 ## Quick Start
-```
+```javascript
 import CoinGecko from 'coingecko-api-client';
 
 const client = new CoinGecko();
@@ -24,7 +24,7 @@ console.log(bitcoinPrice);
 
 ## Options
 The following optional parameters can be passed when creating an instance:
-```
+```javascript
 import axios from 'axios';
 
 // apiKey  (optional) - CoinGecko Pro API key

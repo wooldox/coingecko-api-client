@@ -1,7 +1,7 @@
 {
   "name": "coingecko-api-client",
-  "version": "0.0.1",
-  "description": "A TypeScript client for the CoinGecko API.",
+  "version": "1.0.0",
+  "description": "A TypeScript client for the CoinGecko API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
