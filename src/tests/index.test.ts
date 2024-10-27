@@ -1,7 +1,8 @@
 import CoinGecko from '../';
+import { CoinGeckoApiType } from '../types';
 
 describe('CoinGecko API', () => {
-  const client = new CoinGecko();
+  const client = new CoinGecko({ type: CoinGeckoApiType.DEMO });
 
   it('should get NFT by contract address', async () => {
     const baycData = await client.getNftByContractAddress({
