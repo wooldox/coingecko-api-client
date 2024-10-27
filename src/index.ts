@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, isAxiosError } from 'axios';
 import { format, fromUnixTime } from 'date-fns';
 import {
+  CoinGeckoApiType,
   AssetPlatform,
   AssetPlatformParams,
   Coin,
@@ -58,14 +59,28 @@ import {
 } from './types';
 
 class CoinGecko {
-  private apiUrl = 'https://api.coingecko.com/api';
-  private apiVersion = 'v3';
+  private static readonly V3_URL = 'https://api.coingecko.com/api/v3';
+  private static readonly PRO_V3_URL = 'https://pro-api.coingecko.com/api/v3';
+  private baseUrl: string;
+  private apiType: CoinGeckoApiType;
   private apiKey: string | undefined;
   private client: AxiosInstance;
   private timeout: number;
 
-  constructor(apiKey?: string, timeout?: number, client?: AxiosInstance) {
+  constructor({
+    apiKey,
+    type,
+    timeout,
+    client,
+  }: {
+    apiKey?: string;
+    type: CoinGeckoApiType;
+    timeout?: number;
+    client?: AxiosInstance;
+  }) {
+    this.baseUrl = type === CoinGeckoApiType.PRO ? CoinGecko.PRO_V3_URL : CoinGecko.V3_URL;
     this.apiKey = apiKey;
+    this.apiType = type;
     this.timeout = timeout ?? 30000;
     this.client = client ?? axios.create({ timeout: this.timeout });
   }
@@ -83,10 +98,11 @@ class CoinGecko {
     endpoint: string,
     params: AxiosRequestConfig['params'],
   ): Promise<T> => {
+    const apiHeader = this.apiType === CoinGeckoApiType.PRO ? 'x-cg-pro-api-key' : 'x-cg-demo-api-key';
     const config: AxiosRequestConfig = {
       method: 'GET',
-      url: `${this.apiUrl}/${this.apiVersion}/${endpoint}`,
-      params: { ...params, x_cg_pro_api_key: this.apiKey },
+      url: `${this.baseUrl}/${endpoint}`,
+      params: { ...params, [apiHeader]: this.apiKey },
     };
 
     try {

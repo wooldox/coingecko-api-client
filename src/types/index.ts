@@ -56,15 +56,18 @@ export type Locale =
   | 'zh'
   | 'zh-tw';
 
-type CreateArrayWithLengthX<LENGTH extends number, ACC extends unknown[] = []> = ACC['length'] extends LENGTH
-  ? ACC
-  : CreateArrayWithLengthX<LENGTH, [...ACC, 1]>;
+type CreateArrayWithLengthX<
+  LENGTH extends number,
+  ACC extends unknown[] = [],
+> = ACC['length'] extends LENGTH ? ACC : CreateArrayWithLengthX<LENGTH, [...ACC, 1]>;
 
 type NumericRange<
   START_ARR extends number[],
   END extends number,
   ACC extends number = never,
-> = START_ARR['length'] extends END ? ACC | END : NumericRange<[...START_ARR, 1], END, ACC | START_ARR['length']>;
+> = START_ARR['length'] extends END
+  ? ACC | END
+  : NumericRange<[...START_ARR, 1], END, ACC | START_ARR['length']>;
 
 export interface PaginationParams {
   per_page?: NumericRange<CreateArrayWithLengthX<1>, 250>;
@@ -84,6 +87,11 @@ export interface AssetPlatform {
   shortname: string;
 }
 
+export enum CoinGeckoApiType {
+  DEMO = 'DEMO',
+  PRO = 'PRO',
+}
+
 export * from './category';
 export * from './coin';
 export * from './contract';
@@ -98,4 +106,3 @@ export * from './rate';
 export * from './search';
 export * from './status';
 export * from './trending';
-
